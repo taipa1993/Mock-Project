@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  rmt.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionString=${DB:-Server=sqldata;Database=RMT;User Id=sa;Password=Pass@word}
+    ports:
+      - "8080:80"
+  sqldata:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+    volumes:
+      - rmt-sqldata:/var/opt/mssql
+volumes:
+  rmt-sqldata:
+    external: false
